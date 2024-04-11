@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_1/componentes/custom_button.dart';
 
 class CounterScreen extends StatefulWidget {
   const CounterScreen({super.key});
@@ -16,15 +17,38 @@ class _CounterScreenState extends State<CounterScreen> {
         (countClicked == 1 || countClicked == 0) ? 'Click' : 'Clicks';
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Counter Screen'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            countClicked++;
-          });
-        },
-        child: const Icon(Icons.plus_one),
+          title: const Text('Counter Screen'),
+          leading: IconButton(
+            icon: const Icon(Icons.refresh_outlined),
+            onPressed: () {
+              setState(() {
+                countClicked = 0;
+              });
+            },
+          )),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          CustomButton(
+              icon: Icons.plus_one,
+              onPressed: () {
+                setState(() {
+                  countClicked++;
+                });
+              }),
+          const SizedBox(
+            height: 10,
+          ),
+          CustomButton(
+              icon: Icons.exposure_minus_1_sharp,
+              onPressed: () {
+                if (countClicked >= 1) {
+                  setState(() {
+                    countClicked--;
+                  });
+                }
+              }),
+        ],
       ),
       body: Center(
         child: Column(
